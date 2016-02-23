@@ -16,11 +16,11 @@ public class RRDiscountStrategy {
      */
     public static void main(String[] args) {
         // KLUDGE: Do configuration here
-        
+        DatabaseStrategy db = new FakeDatabase();
         
         // Start talking to objects
-        
-        
+        Register register = new Register();
+        register.startNewSale("100", db);
     }
     
 }
