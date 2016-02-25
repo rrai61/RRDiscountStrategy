@@ -12,6 +12,7 @@ package rrdiscoutnstrategy;
 public class LineItem {
     private Product product;   
     private LineItem[] items;
+    private double extendedPrice;
 
     public final Product getProduct() {
         return product;
@@ -27,6 +28,11 @@ public class LineItem {
 
     public final void addItems() {
         
+    }
+    
+    public final double getExtendedPrice(int qty){
+        extendedPrice = product.getUnitCost() * qty;
+        return extendedPrice;
     }
     
     
