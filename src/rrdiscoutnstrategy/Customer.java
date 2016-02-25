@@ -14,7 +14,7 @@ public class Customer {
     private String customerName;
 
     public Customer(String customerId, String customerName) {
-        setCustomerId(customerName);
+        setCustomerId(customerId);
         setCustomerName(customerName);
     }
     

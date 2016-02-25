@@ -21,6 +21,10 @@ public class RRDiscountStrategy {
         // Start talking to objects
         Register register = new Register();
         register.startNewSale("100", db);
+        
+        // test code
+        Customer customer = register.getReceipt().getCustomer();
+        System.out.println("Customer " + customer.getCustomerName() + " found and added to receipt.");
     }
     
 }

@@ -38,12 +38,12 @@ public class FakeDatabase implements DatabaseStrategy {
     }
     
     @Override
-    public final Customer findCustomerById(String customerId) {
+    public final Customer findCustomerById(String custId) {
         // needs validation
         Customer customer = null;
         
         for(Customer c : customers) {
-            if(c.getCustomerId().equals(customerId)) {
+            if(c.getCustomerId().equals(custId)) {
                 customer = c;
                 break;
             }
