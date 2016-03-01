@@ -11,8 +11,12 @@ package rrdiscoutnstrategy;
  */
 public class LineItem {
     private Product product;   
-    private LineItem[] items;
-    private double extendedPrice;
+    private int qty;
+
+    public LineItem(String prodId, int qty, DatabaseStrategy db) {
+        setQty(qty);
+        setProduct(db.findProductById(prodId));
+    }
 
     public final Product getProduct() {
         return product;
@@ -22,17 +26,28 @@ public class LineItem {
         this.product = product;
     }
 
-    public final LineItem[] getItems() {
-        return items;
+    public final int getQty() {
+        return qty;
     }
 
-    public final void addItems() {
-        
+    public final void setQty(int qty) {
+        this.qty = qty;
     }
     
-    public final double getExtendedPrice(int qty){
-        extendedPrice = product.getUnitCost() * qty;
+    public final double getExtendedPrice(){
+        double extendedPrice = product.getUnitCost() * qty;
         return extendedPrice;
+    }
+    
+    public final String getLineItemData(){
+        String data = product.getProdId() + "              " + qty +  "               " + getExtendedPrice() 
+                + "              " + calculateDiscount() + "\n";
+        return data;
+    }
+    
+    public final double calculateDiscount() {
+        double calculatedDiscount =  getExtendedPrice() - product.getDiscount().getDiscountAmt(qty, product.getUnitCost());
+        return calculatedDiscount;
     }
     
     

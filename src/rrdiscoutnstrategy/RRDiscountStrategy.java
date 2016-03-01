@@ -23,8 +23,21 @@ public class RRDiscountStrategy {
         register.startNewSale("100", db);
         
         // test code
-        Customer customer = register.getReceipt().getCustomer();
-        System.out.println("Customer " + customer.getCustomerName() + " found and added to receipt.");
+//        Customer customer = register.getReceipt().getCustomer();
+//        System.out.println("Customer " + customer.getCustomerName() + " found and added to receipt.");
+        
+        register.addItemToSale("11", 2);
+        register.addItemToSale("22", 1);
+        register.addItemToSale("33", 3);
+        
+//        // test... 
+//        LineItem[] items = register.getReceipt().getLineItems();
+//        for(LineItem item: items){
+//            System.out.println(item.getProduct().getProdName());
+//        }
+
+        register.endSale();
+        
     }
     
 }
