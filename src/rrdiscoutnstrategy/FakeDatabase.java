@@ -7,6 +7,7 @@ package rrdiscoutnstrategy;
 
 /**
  *
+ * 
  * @author ritu
  */
 public class FakeDatabase implements DatabaseStrategy {
@@ -17,11 +18,18 @@ public class FakeDatabase implements DatabaseStrategy {
     };
     
     private Product[] products = {
-        new Product("11", "Brewer's Hat", 29.95, new PercentOffDiscount(.10)), 
-        new Product("22", "Women's Blouse", 49.95, new FlatAmtDiscount(5.00)),
-        new Product("33", "Men's Black Belt", 39.95, new NoDiscount())
+        new Product("11", "Brewer's Hat     ", 29.95, new PercentOffDiscount(.10)), 
+        new Product("22", "Women's Blouse   ", 49.95, new FlatAmtDiscount(5.00)),
+        new Product("33", "Men's Black Belt ", 39.95, new NoDiscount())
     };
     
+    /**
+     * CAUTION: findProductById method not validated
+     * Finds a product by its unique id.
+     * @param prodId
+     * @return a Product object or null if not found
+     */
+
     @Override
     public final Product findProductById(String prodId){
         // needs validation
@@ -37,6 +45,12 @@ public class FakeDatabase implements DatabaseStrategy {
         return product;
     }
     
+     /**
+     * CAUTION: findCustomerById method not validated
+     * Finds a customer by unique id.
+     * @param custId
+     * @return a customer object or null if not found
+     */
     @Override
     public final Customer findCustomerById(String custId) {
         // needs validation

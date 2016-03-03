@@ -5,6 +5,9 @@
  */
 package rrdiscoutnstrategy;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 /**
  *
  * @author ritu
@@ -12,10 +15,12 @@ package rrdiscoutnstrategy;
 public class LineItem {
     private Product product;   
     private int qty;
+    private String prodName;
 
     public LineItem(String prodId, int qty, DatabaseStrategy db) {
         setQty(qty);
         setProduct(db.findProductById(prodId));
+        setProductName(db.findProductById(prodId).getProdName());
     }
 
     public final Product getProduct() {
@@ -35,20 +40,32 @@ public class LineItem {
     }
     
     public final double getExtendedPrice(){
-        double extendedPrice = product.getUnitCost() * qty;
+        NumberFormat formatter = new DecimalFormat("#0.00");     
+         String fmt = formatter.format(product.getUnitCost() * qty);
+         double extendedPrice = Double.parseDouble(fmt);
         return extendedPrice;
     }
-    
-    public final String getLineItemData(){
-        String data = product.getProdId() + "              " + qty +  "               " + getExtendedPrice() 
-                + "              " + calculateDiscount() + "\n";
-        return data;
+   
+    public final double calculateDiscount(){
+        double discount = product.getDiscount().getDiscountAmt(qty, product.getUnitCost());
+        return discount;
     }
     
-    public final double calculateDiscount() {
+    public final double getCalculatedDiscount() {
         double calculatedDiscount =  getExtendedPrice() - product.getDiscount().getDiscountAmt(qty, product.getUnitCost());
         return calculatedDiscount;
     }
+    
+    public final void setProductName(String prodName){
+        // needs validation
+        this.prodName = prodName;
+    }
+    
+    public final String getProductName(){
+        return prodName;
+    }
+    
+    
     
     
 }

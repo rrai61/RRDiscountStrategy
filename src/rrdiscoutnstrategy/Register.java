@@ -11,38 +11,49 @@ package rrdiscoutnstrategy;
  */
 public class Register {
     private Receipt receipt;
-    private String storeName;
+    private ReceiptFormatStrategy receiptStrategy;
+    private String storeInfo;
     
-    public final void startNewSale(String custId, DatabaseStrategy db){
+    public final void startNewSale(String custId, DatabaseStrategy db, String storeInfo, ReceiptFormatStrategy receiptStrategy){
         // needs validation
-        receipt = new Receipt(custId, db);
+        setReceiptStrategy(receiptStrategy);
+        receipt = new Receipt(custId, db, storeInfo);
     }
     
-    public final void endSale(){
-        // print receipt when sale ends
-        System.out.println(receipt.createReceipt());
+    public final String endSale(){
+        // return receipt in String format when sale ends
+        return receiptStrategy.formatReceipt(receipt);
     }
     
     public final void addItemToSale(String prodId, int qty){
         receipt.addItemToReceipt(prodId, qty);
     }
 
-    public final Receipt getReceipt() {
+    public final String getStoreInfo() {
+        return storeInfo;
+    }
+
+    public final void setStoreInfo(String storeInfo) {
+        // needs validation
+        this.storeInfo = storeInfo;
+    }
+
+    public Receipt getReceipt() {
         return receipt;
     }
 
-    public final void setReceipt(Receipt receipt) {
+    public void setReceipt(Receipt receipt) {
         // needs validation
         this.receipt = receipt;
     }
 
-    public final String getStoreName() {
-        return storeName;
+    public ReceiptFormatStrategy getReceiptStrategy() {
+        return receiptStrategy;
     }
 
-    public final void setStoreName(String storeName) {
+    public void setReceiptStrategy(ReceiptFormatStrategy receiptStrategy) {
         // needs validation
-        this.storeName = storeName;
+        this.receiptStrategy = receiptStrategy;
     }
     
     
