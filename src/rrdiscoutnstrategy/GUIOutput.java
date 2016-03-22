@@ -5,10 +5,17 @@
  */
 package rrdiscoutnstrategy;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ritu
  */
-public interface OutputStrategy {
-    public abstract void output(String data);
+public class GUIOutput implements OutputStrategy{
+    
+    @Override
+    public final void output(String data) {
+        // needs validation
+        JOptionPane.showMessageDialog(null, data);
+    }
 }

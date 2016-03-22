@@ -57,7 +57,7 @@ public class FakeDatabase implements DatabaseStrategy {
         Customer customer = null;
         
         for(Customer c : customers) {
-            if(c.getCustomerId().equals(custId)) {
+            if(c.getCustomerNum().equals(custId)) {
                 customer = c;
                 break;
             }

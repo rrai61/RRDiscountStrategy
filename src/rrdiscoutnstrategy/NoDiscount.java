@@ -12,10 +12,6 @@ package rrdiscoutnstrategy;
 public class NoDiscount implements DiscountStrategy{
     private double discountRate;
     private final int NO_DISCOUNT =0;
-
-    public NoDiscount() {
-        
-    }
       
     @Override
     public final double getDiscountAmt(int qty, double unitCost) {
@@ -27,8 +23,10 @@ public class NoDiscount implements DiscountStrategy{
         return discountRate;
     }
 
-    public final void setDiscountRate(double discountRate) {
-        // needs validation
+    public final void setDiscountRate(double discountRate) throws IllegalArgumentException{
+        if(discountRate >= 100){
+            throw new IllegalArgumentException("Sorry discount rate cannot be greater than 100");
+        }
         this.discountRate = discountRate;
     }
 

@@ -17,9 +17,10 @@ public class RRDiscountStrategy {
     public static void main(String[] args) {
         // KLUDGE: Do configuration here
         DatabaseStrategy db = new FakeDatabase();
-        ReceiptFormatStrategy receiptFmt = new SimpleReceipt();
+        ReceiptFormatStrategy receiptFmt = new ComplexReceipt();
         // Start talking to objects
         Register register = new Register();
+        try{
         register.startNewSale("100", db, "Kohl's Department Store", receiptFmt);
         
         // test code
@@ -35,9 +36,12 @@ public class RRDiscountStrategy {
 //        for(LineItem item: items){
 //            System.out.println(item.getProduct().getProdName());
 //        }
+        }
+        catch(IllegalArgumentException e) {
+            e.getMessage();
+        }
+        
         System.out.println(register.endSale());
-        
-        
     }
     
 }

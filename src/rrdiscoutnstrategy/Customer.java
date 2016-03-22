@@ -10,21 +10,23 @@ package rrdiscoutnstrategy;
  * @author ritu
  */
 public class Customer {
-    private String customerId;
+    private String customerNum;
     private String customerName;
 
-    public Customer(String customerId, String customerName) {
-        setCustomerId(customerId);
+    public Customer(String customerNum, String customerName) {
+        setCustomerNum(customerNum);
         setCustomerName(customerName);
     }
-    
-    public final String getCustomerId() {
-        return customerId;
+
+    public final String getCustomerNum() {
+        return customerNum;
     }
 
-    public final void setCustomerId(String customerID) {
-        // needs validation
-        this.customerId = customerID;
+    public final void setCustomerNum(String customerNum) throws IllegalArgumentException {
+        if(customerNum == null || customerNum.isEmpty()){
+            throw new IllegalArgumentException("Sorry customer number is mandatory and must not be empty");
+        }
+        this.customerNum = customerNum;
     }
 
     public final String getCustomerName() {
@@ -32,8 +34,9 @@ public class Customer {
     }
 
     public final void setCustomerName(String customerName) {
-        // needs validation
+        if(customerName == null || customerName.isEmpty()){
+            throw new IllegalArgumentException("Sorry customer name is mandatory and must not be empty");
+        }
         this.customerName = customerName;
     }
-    
 }

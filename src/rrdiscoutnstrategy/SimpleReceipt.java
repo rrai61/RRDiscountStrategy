@@ -31,7 +31,7 @@ public class SimpleReceipt implements ReceiptFormatStrategy{
     }
     
     private String getLineItemData(LineItem item){
-        String data = item.getProduct().getProdId() + "              " +item.getProductName() + "           " +item.getQty() +  "               " 
+        String data = item.getProduct().getProdId() + "\t\t" +item.getProductName() + "\t\t" +item.getQty() +  "\t\t" 
                 + item.getExtendedPrice() + "\n";
         return data;
     }
