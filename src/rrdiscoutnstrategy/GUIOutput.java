@@ -15,7 +15,9 @@ public class GUIOutput implements OutputStrategy{
     
     @Override
     public final void output(String data) {
-        // needs validation
+        if(data == null || data.isEmpty()){
+            throw new IllegalArgumentException("Sorry data String is manddatory and cannot be an empty string.");
+        }
         JOptionPane.showMessageDialog(null, data);
     }
 }

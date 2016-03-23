@@ -14,14 +14,16 @@ public class QuantityDiscount implements DiscountStrategy{
     private int minQty;
     private final int NO_DISCOUNT = 0;
 
-    public QuantityDiscount(double discountRate, int minQty) {
+    public QuantityDiscount(double discountRate, int minQty) throws IllegalArgumentException {
         setDiscountRate(discountRate);
         setMinQty(minQty);
     }
       
     @Override
-    public final double getDiscountAmt(int qty, double unitCost) {
-        // needs validation
+    public final double getDiscountAmt(int qty, double unitCost) throws IllegalArgumentException{
+        if(qty <= 0 || unitCost <= 0){
+            throw new IllegalArgumentException("Sorry minimum quantity/unit cost cannot be negative or 0");
+        }
         if (qty >= minQty){
             return unitCost * qty * discountRate;
         } else {
@@ -33,8 +35,10 @@ public class QuantityDiscount implements DiscountStrategy{
         return discountRate;
     }
 
-    public final void setDiscountRate(double discountRate) {
-        // needs validation
+    public final void setDiscountRate(double discountRate) throws IllegalArgumentException{
+        if((discountRate < 0) || (discountRate >= 100)){
+            throw new IllegalArgumentException("Sorry discount rate cannot be negative or greater than or equal to 100");
+        }
         this.discountRate = discountRate;
     }
 
@@ -42,8 +46,10 @@ public class QuantityDiscount implements DiscountStrategy{
         return minQty;
     }
 
-    public final void setMinQty(int minQty) {
-        // needs validation
+    public final void setMinQty(int minQty) throws IllegalArgumentException{
+        if(minQty <= 0){
+            throw new IllegalArgumentException("Sorry minimum quantity cannot be less than or equal to 0");
+        }
         this.minQty = minQty;
     }
 

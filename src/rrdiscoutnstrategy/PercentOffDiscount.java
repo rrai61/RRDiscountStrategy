@@ -12,13 +12,15 @@ package rrdiscoutnstrategy;
 public class PercentOffDiscount implements DiscountStrategy{
     private double discountRate;
 
-    public PercentOffDiscount(double discountRate) {
+    public PercentOffDiscount(double discountRate) throws IllegalArgumentException{
         setDiscountRate(discountRate);
     }
       
     @Override
     public final double getDiscountAmt(int qty, double unitCost) {
-        // needs validation
+        if(qty <= 0 || unitCost <= 0){
+            throw new IllegalArgumentException("Sorry quantity and unit cost cannot be less than or equal to 0");
+        }
         return unitCost * qty * discountRate;
     }
 
@@ -26,8 +28,10 @@ public class PercentOffDiscount implements DiscountStrategy{
         return discountRate;
     }
 
-    public final void setDiscountRate(double discountRate) {
-        // needs validation
+    public final void setDiscountRate(double discountRate) throws IllegalArgumentException{
+        if((discountRate <= 0) || (discountRate >= 100)){
+            throw new IllegalArgumentException("Sorry discount rate must be greater than 0 or greater than or equal to 100");
+        }
         this.discountRate = discountRate;
     }
 

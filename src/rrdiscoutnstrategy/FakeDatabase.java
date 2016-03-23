@@ -31,8 +31,10 @@ public class FakeDatabase implements DatabaseStrategy {
      */
 
     @Override
-    public final Product findProductById(String prodId){
-        // needs validation
+    public final Product findProductById(String prodId) throws IllegalArgumentException{
+        if(prodId == null || prodId.isEmpty()){
+            throw new IllegalArgumentException("Sorry product Id is manddatory and cannot be an empty string.");
+        }
         Product product = null;
         
         for(Product c : products) {
@@ -52,8 +54,10 @@ public class FakeDatabase implements DatabaseStrategy {
      * @return a customer object or null if not found
      */
     @Override
-    public final Customer findCustomerById(String custId) {
-        // needs validation
+    public final Customer findCustomerById(String custId) throws IllegalArgumentException{
+        if(custId == null || custId.isEmpty()){
+            throw new IllegalArgumentException("Sorry customer Id is manddatory and cannot be an empty string.");
+        }
         Customer customer = null;
         
         for(Customer c : customers) {

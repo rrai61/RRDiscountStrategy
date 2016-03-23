@@ -18,7 +18,10 @@ public class SimpleReceipt implements ReceiptFormatStrategy{
                 "-------\t\t---------\t\t\t---\t\t----------\n";
     
     @Override
-    public final String formatReceipt(Receipt receipt){
+    public final String formatReceipt(Receipt receipt) throws IllegalArgumentException{
+        if(receipt == null){
+            throw new IllegalArgumentException("Sorry receipt object cannot be null.");
+        }
         fmtReceipt = receipt.getStoreInfo() + "\n";
         fmtReceipt += dataHeader;
         for(LineItem item: receipt.getLineItems()){
@@ -30,7 +33,10 @@ public class SimpleReceipt implements ReceiptFormatStrategy{
         return fmtReceipt;
     }
     
-    private String getLineItemData(LineItem item){
+    private String getLineItemData(LineItem item)throws IllegalArgumentException{
+        if(item == null){
+            throw new IllegalArgumentException("Sorry line item cannot be null.");
+        }
         String data = item.getProduct().getProdId() + "\t\t" +item.getProductName() + "\t\t" +item.getQty() +  "\t\t" 
                 + item.getExtendedPrice() + "\n";
         return data;

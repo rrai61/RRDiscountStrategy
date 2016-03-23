@@ -14,8 +14,10 @@ public class Register {
     private ReceiptFormatStrategy receiptStrategy;
     private String storeInfo;
     
-    public final void startNewSale(String custId, DatabaseStrategy db, String storeInfo, ReceiptFormatStrategy receiptStrategy){
-        // needs validation
+    public final void startNewSale(String custId, DatabaseStrategy db, String storeInfo, ReceiptFormatStrategy receiptStrategy) throws IllegalArgumentException{
+        if(custId == null || custId.isEmpty() || db == null || storeInfo == null || storeInfo.isEmpty()){
+            throw new IllegalArgumentException("Sorry customer ID, store info and database strategy object are all mandatory and cannot be empty.");
+        }
         setReceiptStrategy(receiptStrategy);
         receipt = new Receipt(custId, db, storeInfo);
     }
@@ -25,7 +27,10 @@ public class Register {
         return receiptStrategy.formatReceipt(receipt);
     }
     
-    public final void addItemToSale(String prodId, int qty){
+    public final void addItemToSale(String prodId, int qty)throws IllegalArgumentException{
+        if(prodId == null || prodId.isEmpty() || qty == 0){
+            throw new IllegalArgumentException("Sorry product ID is mandatory and quantity must be greater than 0.");
+        }
         receipt.addItemToReceipt(prodId, qty);
     }
 
@@ -33,8 +38,10 @@ public class Register {
         return storeInfo;
     }
 
-    public final void setStoreInfo(String storeInfo) {
-        // needs validation
+    public final void setStoreInfo(String storeInfo) throws IllegalArgumentException{
+        if(storeInfo == null || storeInfo.isEmpty()){
+            throw new IllegalArgumentException("Sorry store info is mandatory and cannot be an empty string.");
+        }
         this.storeInfo = storeInfo;
     }
 
@@ -42,8 +49,10 @@ public class Register {
         return receipt;
     }
 
-    public void setReceipt(Receipt receipt) {
-        // needs validation
+    public void setReceipt(Receipt receipt) throws IllegalArgumentException{
+        if(receipt == null){
+            throw new IllegalArgumentException("Sorry receipt object is mandatory.");
+        }
         this.receipt = receipt;
     }
 
@@ -51,8 +60,10 @@ public class Register {
         return receiptStrategy;
     }
 
-    public void setReceiptStrategy(ReceiptFormatStrategy receiptStrategy) {
-        // needs validation
+    public void setReceiptStrategy(ReceiptFormatStrategy receiptStrategy) throws IllegalArgumentException{
+        if(receiptStrategy == null){
+            throw new IllegalArgumentException("Sorry receipt format strategy object is mandatory.");
+        }
         this.receiptStrategy = receiptStrategy;
     }
     

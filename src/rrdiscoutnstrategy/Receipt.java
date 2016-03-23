@@ -15,15 +15,17 @@ public class Receipt {
     private Customer customer;
     private LineItem[] lineItems;
 
-    public Receipt(String custId, DatabaseStrategy db, String storeInfo){
-        // needs validation
+    public Receipt(String custId, DatabaseStrategy db, String storeInfo) throws IllegalArgumentException{
         setDb(db);
         setCustomer(db.findCustomerById(custId));
         setStoreInfo(storeInfo);
         lineItems = new LineItem[0];
     }
             
-    private void addItemToArray(LineItem[] origArray, LineItem item){
+    private void addItemToArray(LineItem[] origArray, LineItem item) throws IllegalArgumentException{
+        if(item == null){
+            throw new IllegalArgumentException("Sorry line item cannot be null.");
+        }
         LineItem[] tempArray = new LineItem[origArray.length + 1];
         System.arraycopy(origArray, 0, tempArray, 0, origArray.length);
         tempArray[tempArray.length -1] = item;
@@ -31,15 +33,16 @@ public class Receipt {
         lineItems = origArray;
     }
     
-    public final void addItemToReceipt(String prodId, int qty) {
-        // needs validation
+    public final void addItemToReceipt(String prodId, int qty) throws IllegalArgumentException{
+        if(prodId == null || prodId.isEmpty() || qty == 0){
+            throw new IllegalArgumentException("Sorry product ID is mandatory and quantity must be greater than 0.");
+        }
         LineItem item = new LineItem(prodId, qty, db);
         
         addItemToArray(lineItems, item);
     }
     
     public final double calcSubtotal() {
-        // needs validation
         double total = 0;
         for(LineItem item: lineItems){
             total += item.getExtendedPrice();
@@ -56,7 +59,6 @@ public class Receipt {
     }
     
     public final double calcGrandTotal() {
-        // needs validation
         double total = calcSubtotal() - calcTotalDiscountAmt();
         return total;
     }
@@ -66,8 +68,10 @@ public class Receipt {
         return db;
     }
 
-    public final void setDb(DatabaseStrategy db) {
-        // needs validation
+    public final void setDb(DatabaseStrategy db)throws IllegalArgumentException {
+        if(db == null){
+            throw new IllegalArgumentException("Sorry database strategy cannot be null.");
+        }
         this.db = db;
     }
 
@@ -75,8 +79,10 @@ public class Receipt {
         return customer;
     }
 
-    public final void setCustomer(Customer customer) {
-        // needs validation
+    public final void setCustomer(Customer customer) throws IllegalArgumentException{
+        if(customer == null){
+            throw new IllegalArgumentException("Sorry customer cannot be null");
+        }
         this.customer = customer;
     }
 
@@ -84,8 +90,10 @@ public class Receipt {
         return lineItems;
     }
 
-    public final void setLineItems(LineItem[] lineItems) {
-        // needs validation
+    public final void setLineItems(LineItem[] lineItems) throws IllegalArgumentException{
+        if(lineItems == null){
+            throw new IllegalArgumentException("Sorry line items cannot be null.");
+        }
         this.lineItems = lineItems;
     }
     
@@ -93,8 +101,10 @@ public class Receipt {
         return storeInfo;
     }
 
-    public final void setStoreInfo(String storeInfo) {
-        // needs validation
+    public final void setStoreInfo(String storeInfo) throws IllegalArgumentException{
+        if(storeInfo == null || storeInfo.isEmpty()){
+            throw new IllegalArgumentException("Sorry store info cannot be null or empty string.");
+        }
         this.storeInfo = storeInfo;
     }
     

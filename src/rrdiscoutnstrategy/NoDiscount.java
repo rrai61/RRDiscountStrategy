@@ -24,8 +24,8 @@ public class NoDiscount implements DiscountStrategy{
     }
 
     public final void setDiscountRate(double discountRate) throws IllegalArgumentException{
-        if(discountRate >= 100){
-            throw new IllegalArgumentException("Sorry discount rate cannot be greater than 100");
+        if((discountRate < 0) || (discountRate > 0)){
+            throw new IllegalArgumentException("Sorry discount rate cannot be negative or greater than 0");
         }
         this.discountRate = discountRate;
     }

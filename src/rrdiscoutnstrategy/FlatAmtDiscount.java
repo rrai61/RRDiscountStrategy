@@ -12,13 +12,12 @@ package rrdiscoutnstrategy;
 public class FlatAmtDiscount implements DiscountStrategy{
     private double discountRate;
 
-    public FlatAmtDiscount(double discountRate) {
+    public FlatAmtDiscount(double discountRate) throws IllegalArgumentException{
         setDiscountAmt(discountRate);
     }
       
     public final double getDiscountRate(int qty, double unitCost) throws IllegalArgumentException {
-        // needs validation
-        if(qty ==0 || unitCost ==0) {
+        if(qty <=0 || unitCost <=0) {
             throw new IllegalArgumentException("Sorry quantity and unit cost must be greater than 0");
         }
         double discountAmt = unitCost - discountRate;
@@ -31,8 +30,8 @@ public class FlatAmtDiscount implements DiscountStrategy{
     }
 
     public final void setDiscountAmt(double discountRate) throws IllegalArgumentException {
-        if(discountRate >= 100) {
-            throw new IllegalArgumentException("Sorry discount rate cannot be greater than or equal to 100");
+        if(discountRate <= 0){
+            throw new IllegalArgumentException("Sorry discount rate cannot be negative");
         }
         this.discountRate = discountRate;
     }
